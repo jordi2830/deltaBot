@@ -19,6 +19,7 @@ public class Quake3Handler {
 	public Quake3Handler() throws SocketException{
 		dsocket = new DatagramSocket();
 		dsocket.setSoTimeout(NETWORK_TIMEOUT);
+		
 	}
 	
 	public String sendRCON(String IP, int aPort, String password, String message) throws IOException{
