@@ -13,8 +13,6 @@ public class Quake3Handler {
 	private DatagramPacket packet;
 	private DatagramPacket receivedPacket;
 	private DatagramSocket dsocket;
-	private byte[] sendBuf = new byte[65507];
-	private byte[] receiveBuf = new byte[65507];
 	
 	public Quake3Handler() throws SocketException{
 		dsocket = new DatagramSocket();
@@ -43,6 +41,8 @@ public class Quake3Handler {
 	}
 	
 	private void constructPacket(String anAddress, int aPort, String message) throws SocketException, UnknownHostException{
+		byte[] sendBuf = new byte[65507];
+		
 		sendBuf = ("xxxx" + message + "\n").getBytes();
 		
 		//Our packets need a header with these bytes
@@ -64,6 +64,7 @@ public class Quake3Handler {
 	}
 	
 	private byte[] receivePacket() throws IOException{
+		byte[] receiveBuf = new byte[65507];
 		receivedPacket = new DatagramPacket(receiveBuf, receiveBuf.length);
 		dsocket.receive(receivedPacket);
 		byte[] received = Arrays.copyOf(receivedPacket.getData(), receivedPacket.getLength());
