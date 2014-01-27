@@ -1,6 +1,6 @@
 package com.deltabot.core;
 
-public class settings {
+public class Settings {
 
     public String identKey = "0000000000";
 }

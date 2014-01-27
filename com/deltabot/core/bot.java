@@ -6,16 +6,16 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class bot {
+public class Bot {
 
-    public settings settings;
+    public Settings Settings;
 
     public void init() {
 
-        if (isValidKey(settings.identKey)) {
-            System.out.println("The key '" + settings.identKey + "' is valid!");
+        if (isValidKey(Settings.identKey)) {
+            System.out.println("The key '" + Settings.identKey + "' is valid!");
         } else {
-            System.out.println("The key '" + settings.identKey + "' is not valid!");
+            System.out.println("The key '" + Settings.identKey + "' is not valid!");
         }
 
     }

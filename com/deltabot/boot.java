@@ -2,7 +2,7 @@ package com.deltabot;
 
 import com.deltabot.handlers.argumentHandler;
 
-public class boot {
+public class Boot {
 
     public static void main(String[] args) {
 
