@@ -1,6 +1,6 @@
 package com.deltabot.handlers;
 
-public class argumentHandler {
+public class ArgumentHandler {
 
     public static void setVariable(String variable, String value){
 

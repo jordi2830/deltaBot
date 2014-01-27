@@ -1,6 +1,6 @@
 package com.deltabot;
 
-import com.deltabot.handlers.argumentHandler;
+import com.deltabot.handlers.ArgumentHandler;
 
 public class Boot {
 
@@ -17,7 +17,7 @@ public class Boot {
                 if (argument.startsWith("set")){
                     String variable = args[currentArg + 1];
                     String value = args[currentArg + 2];
-                    argumentHandler.setVariable(variable, value);
+                    ArgumentHandler.setVariable(variable, value);
                 }
 
             }
