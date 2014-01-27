@@ -9,4 +9,15 @@ public class Player {
     public String GUID;
     public String IP;
 
+    public void kick(String reason, String caller){
+        
+    }
+
+    public void ban(String reason, String duration, String caller){
+
+    }
+
+    public void tell(String message){
+
+    }
 }
