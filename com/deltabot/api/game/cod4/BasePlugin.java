@@ -18,13 +18,19 @@ public interface BasePlugin {
 
     public void onPlayerLeft(Player player);
 
-    public void onPlayerKilled(Player killer, Player victim);
+    public void onPlayerKicked(Player player, String reason, String caller);
+
+    public void onPlayerBanned(Player player, String reason, String duration, String caller);
+
+    public void onPlayerKilled(Player killer, Player victim, String weapon, String hitLoc);
 
     public void onPlayerSuicide(Player victim);
 
     public void onWeaponPickup(Player player, String weaponName);
 
     public void onPlayerSay(Player player, String message);
+
+    public void onMapChange(String oldMap, String newMap);
 
     public Manifest Manifest();
 
