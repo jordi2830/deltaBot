@@ -19,6 +19,7 @@ public class PluginHandler {
         Plugin p = new Plugin(newPlugin); //Plugin will be started once its object is created
 
         loadedPlugins.add(p);
+
     }
 
     public static void raiseEvent() {
@@ -47,6 +48,7 @@ class Plugin implements Runnable {
     public void startPlugin() {
         if (basePlugin.start()) { //plugin will return true if it has successfully started.. else false
             //if true -> start main loop from plugin
+            System.out.println("Plugin '" + basePlugin.Manifest().name + "' version " + basePlugin.Manifest().version + " successfully loaded.");
             state = PLUGINSTATE.RUNNING;
             pluginLoopThread = new Thread(this);
             pluginLoopThread.start();
