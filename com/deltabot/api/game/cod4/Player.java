@@ -9,23 +9,23 @@ public class Player {
     public String GUID;
     public String IP;
 
-    public void kick(String reason){
+    public void kick(String reason) {
         kick(reason, "deltabot_local");
     }
 
-    public void kick(String reason, String caller){
-        
+    public void kick(String reason, String caller) {
+
     }
 
-    public void ban(String reason, String duration){
+    public void ban(String reason, String duration) {
         ban(reason, duration, "deltabot_local");
     }
 
-    public void ban(String reason, String duration, String caller){
+    public void ban(String reason, String duration, String caller) {
 
     }
 
-    public void tell(String message){
+    public void tell(String message) {
 
     }
 }

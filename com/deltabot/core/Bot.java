@@ -27,9 +27,9 @@ public class Bot {
             BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
             String response = reader.readLine(); //Response should only be 1 line, so no need to read more
 
-            if (response.equals("valid")){
+            if (response.equals("valid")) {
                 return true;
-            } else if (response.equals("invalid")){
+            } else if (response.equals("invalid")) {
                 return false;
             } else {
                 //Some other response (server error?) should be handled as invalid aswell

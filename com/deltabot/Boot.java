@@ -11,13 +11,13 @@ public class Boot {
 
         int currentArg = -1;
 
-        for(String argument : args){
+        for (String argument : args) {
             currentArg++;
 
-            if (argument.startsWith("+")){
+            if (argument.startsWith("+")) {
                 argument = argument.substring(1, argument.length());
 
-                if (argument.startsWith("set")){
+                if (argument.startsWith("set")) {
                     String variable = args[currentArg + 1];
                     String value = args[currentArg + 2];
                     VariableHandler.setVariable(variable, value);
