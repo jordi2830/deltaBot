@@ -1,6 +1,9 @@
 package com.deltabot;
 
+import com.deltabot.handlers.PluginHandler;
 import com.deltabot.handlers.VariableHandler;
+
+import java.net.MalformedURLException;
 
 public class Boot {
 
@@ -22,6 +25,19 @@ public class Boot {
 
             }
 
+        }
+
+        try {
+            //plugin loading attempt below
+            PluginHandler.loadPlugin("file:C:\\Users\\Jordi\\Desktop\\ExamplePlugin.jar", "com.jordidp.Plugin");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
         }
 
     }
