@@ -68,21 +68,24 @@ class Plugin implements Runnable{
 
     @Override
     public void run() {
-        if(state == PLUGINSTATE.RUNNING){
-            //The main loop of the plugin will run in this thread
-            int wait = basePlugin.loop(); //Loop will return the wait time for the next time we go through the loop
-            try {
-                Thread.sleep(wait);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        } else {
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+       while(true){
+           if(state == PLUGINSTATE.RUNNING){
+               //The main loop of the plugin will run in this thread
+               int wait = basePlugin.loop(); //Loop will return the wait time for the next time we go through the loop
+               try {
+                   Thread.sleep(wait);
+               } catch (InterruptedException e) {
+                   e.printStackTrace();
+               }
+           } else {
+               try {
+                   Thread.sleep(10);
+               } catch (InterruptedException e) {
+                   e.printStackTrace();
+               }
+           }
+       }
+
 
     }
 }
