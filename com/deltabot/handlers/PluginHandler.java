@@ -59,6 +59,11 @@ class Plugin implements Runnable {
         if (basePlugin.pause()) state = PLUGINSTATE.PAUSED;
     }
 
+    public void resumePlugin() {
+        basePlugin.resume();
+        state = PLUGINSTATE.RUNNING;
+    }
+
     public void stopPlugin() {
         basePlugin.stop();
         state = PLUGINSTATE.STOPPED;

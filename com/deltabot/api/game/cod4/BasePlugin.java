@@ -10,6 +10,8 @@ public interface BasePlugin {
 
     public boolean pause(); //called when a plugin is paused by an admin -> if true is returned -> plugin is paused
 
+    public void resume(); //called when a plugin was paused, but is now resumed
+
     public int loop(); //main loop of the plugin. Returned integer = time to wait before next time we start the loop
 
     public void onPlayerJoined(Player player);
