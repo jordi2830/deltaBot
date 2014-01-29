@@ -2,9 +2,6 @@ package com.deltabot.handlers.game.cod4;
 
 import java.util.Map;
 
-import com.humborstad.test_java.EventHandler;
-import com.humborstad.test_java.EventHandler.Event;
-
 
 public class InitGameEventHandler extends EventHandler {
 
@@ -18,8 +15,9 @@ public class InitGameEventHandler extends EventHandler {
 		initGameData = inData;
 	}
 	
-	public Map<String, String> getData(){
-		return initGameData;
+	public void pushData(){
+		//Pushdata to API
+		super.setIsEventHandled(true);
 	}
 
 }

@@ -15,8 +15,9 @@ public class JoinEventHandler extends EventHandler {
 		joinData = inData;
 	}
 	
-	public Map<String, String> getData(){
-		return joinData;
+	public void pushData(){
+		//Pushdata to API
+		super.setIsEventHandled(true);
 	}
 
 }

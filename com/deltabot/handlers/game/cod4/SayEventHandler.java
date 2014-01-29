@@ -15,8 +15,9 @@ public class SayEventHandler extends EventHandler {
 		sayData = inData;
 	}
 	
-	public Map<String, String> getData(){
-		return sayData;
+	public void pushData(){
+		//Pushdata to API
+		super.setIsEventHandled(true);
 	}
 
 }

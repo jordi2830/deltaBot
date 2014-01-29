@@ -8,29 +8,38 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import com.deltabot.handlers.game.cod4.EventHandler.Event;
+
  
 public class LogParser {
-	public ArrayList<EventHandler> getFileContent(String fileLocation) throws IOException{
+	
+	public void loadNewEventElements(String fileLocation) throws IOException{
+		
+		ArrayList<EventHandler> logLines = new ArrayList<EventHandler>();
 		
 		File logFile = new File(fileLocation);
 		Scanner in = new Scanner(logFile);
-		ArrayList<EventHandler> logLines = new ArrayList<EventHandler>();
 		while(in.hasNextLine()){
 			String k = in.nextLine();
-			EventHandler stringArr = formatString(k);
-			if(!stringArr.getIsEventHandled()){
-				logLines.add(stringArr);
+			EventHandler evt = formatString(k);
+			if(!evt.getIsEventHandled()){
+				logLines.add(evt);
 			}
 		}
 		in.close();
-		return logLines;
+		pushEventsToAPI(logLines);
+	}
+	
+	private void pushEventsToAPI(ArrayList<EventHandler> events){
+		for(EventHandler iter : events){
+			iter.pushData();
+		}
 	}
 	
 	private EventHandler formatString(String inString){
 		EventHandler stringArr = new EventHandler(Event.NONE);
-		if(inString.contains("-------")){
-			//stringArr = formatInitGame(inString);;
-		} else if(inString.contains("InitGame:")){
+		
+		if(inString.contains("InitGame:")){
 			stringArr = formatInitGame(inString);;
 		} else if(inString.split(";")[0].endsWith("J")){
 			stringArr = formatJoin(inString);

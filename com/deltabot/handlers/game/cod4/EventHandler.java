@@ -35,9 +35,10 @@ public class EventHandler {
 		
 	}
 	
-	public Map<String, String> getData(){
-		//Should be overridden in each specific class so that it's sent to the 
-		return null;
+	public void pushData(){
+		//Should be overridden in each specific class so that it's date is
+		//sent to the API
+
 		
 	}
 	

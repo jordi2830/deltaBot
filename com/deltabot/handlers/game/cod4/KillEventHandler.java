@@ -15,8 +15,9 @@ public class KillEventHandler extends EventHandler {
 	}
 	
 
-	public Map<String, String> getData(){
-		return killData;
+	public void pushData(){
+		//Pushdata to API
+		super.setIsEventHandled(true);
 	}
 
 }

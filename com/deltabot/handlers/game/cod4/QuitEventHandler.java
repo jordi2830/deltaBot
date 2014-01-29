@@ -15,8 +15,9 @@ public class QuitEventHandler extends EventHandler {
 		quitData = inData;
 	}
 	
-	public Map<String, String> getData(){
-		return quitData;
+	public void pushData(){
+		//Pushdata to API
+		super.setIsEventHandled(true);
 	}
 
 }
