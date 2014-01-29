@@ -19,6 +19,16 @@ public class VariableHandler {
         }
     }
 
+    public static String getVariableValue(String name){
+        if(variableExists(name)){
+            for(Variable var : varList){
+                if(var.name.toLowerCase().equals(name.toLowerCase())) return var.value;
+            }
+        }
+
+        return "null";
+    }
+
     private static void adjustVariableValue(String name, String value) {
         for (Variable var : varList) {
             if (var.name.toLowerCase().equals(name.toLowerCase())) {

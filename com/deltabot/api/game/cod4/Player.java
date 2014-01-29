@@ -1,5 +1,7 @@
 package com.deltabot.api.game.cod4;
 
+import com.deltabot.handlers.RCONHandler;
+
 public class Player {
 
     public int num;
@@ -14,7 +16,7 @@ public class Player {
     }
 
     public void kick(String reason, String caller) {
-
+        RCONHandler.sendRCON("clientkick " + num);
     }
 
     public void ban(String reason, String duration) {
