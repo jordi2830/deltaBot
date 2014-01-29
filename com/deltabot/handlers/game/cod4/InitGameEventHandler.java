@@ -1,5 +1,7 @@
 package com.deltabot.handlers.game.cod4;
 
+import com.deltabot.handlers.game.cod4.PluginHandler;
+
 import java.util.Map;
 
 
@@ -17,6 +19,7 @@ public class InitGameEventHandler extends EventHandler {
 	
 	public void pushData(){
 		//Pushdata to API
+        PluginHandler.raiseEvent(this, initGameData);
 		super.setIsEventHandled(true);
 	}
 

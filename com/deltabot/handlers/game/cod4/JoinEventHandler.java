@@ -16,8 +16,8 @@ public class JoinEventHandler extends EventHandler {
 	}
 	
 	public void pushData(){
-		//Pushdata to API
-		super.setIsEventHandled(true);
+        PluginHandler.raiseEvent(this, joinData);
+        super.setIsEventHandled(true);
 	}
 
 }

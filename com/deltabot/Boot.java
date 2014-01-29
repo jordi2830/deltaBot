@@ -1,6 +1,6 @@
 package com.deltabot;
 
-import com.deltabot.handlers.PluginHandler;
+import com.deltabot.handlers.game.cod4.PluginHandler;
 import com.deltabot.handlers.VariableHandler;
 
 import java.net.MalformedURLException;

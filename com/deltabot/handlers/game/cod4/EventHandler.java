@@ -38,8 +38,6 @@ public class EventHandler {
 	public void pushData(){
 		//Should be overridden in each specific class so that it's date is
 		//sent to the API
-
-		
 	}
 	
 }

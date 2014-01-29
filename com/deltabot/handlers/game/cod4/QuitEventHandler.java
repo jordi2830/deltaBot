@@ -17,6 +17,7 @@ public class QuitEventHandler extends EventHandler {
 	
 	public void pushData(){
 		//Pushdata to API
+        PluginHandler.raiseEvent(this, quitData);
 		super.setIsEventHandled(true);
 	}
 

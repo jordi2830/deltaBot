@@ -1,4 +1,4 @@
-package com.deltabot.api;
+package com.deltabot.handlers.game.cod4;
 
 import java.io.File;
 import java.io.FileNotFoundException;

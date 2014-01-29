@@ -1,12 +1,16 @@
-package com.deltabot.handlers;
+package com.deltabot.handlers.game.cod4;
 
 import com.deltabot.api.game.cod4.BasePlugin;
+import com.deltabot.api.game.cod4.Functions;
+import com.deltabot.api.game.cod4.Player;
+import sun.org.mozilla.javascript.internal.Function;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class PluginHandler {
 
@@ -22,9 +26,9 @@ public class PluginHandler {
 
     }
 
-    public static void raiseEvent() {
+    public static void raiseEvent(EventHandler e, Map<String, String> eventData) {
         for (Plugin p : loadedPlugins) {
-            p.sendEvent(); //TODO: handle events
+            p.sendEvent(e, eventData); //TODO: handle events
         }
     }
 
@@ -69,8 +73,17 @@ class Plugin implements Runnable {
         state = PLUGINSTATE.STOPPED;
     }
 
-    public void sendEvent() {
+    public void sendEvent(EventHandler e, Map<String, String> eventData) {
         //TODO: add event handler support -> sent correct event to basePlugin
+
+        if(e.getEventType() == EventHandler.Event.SAY){
+            String playerName = eventData.get("playerName");
+            String message = eventData.get("message");
+
+            Player p = Functions.getPlayerByName(playerName);
+
+            basePlugin.onPlayerSay(p, message);
+        }
     }
 
     @Override

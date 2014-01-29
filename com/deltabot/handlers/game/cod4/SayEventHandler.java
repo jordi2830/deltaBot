@@ -17,6 +17,7 @@ public class SayEventHandler extends EventHandler {
 	
 	public void pushData(){
 		//Pushdata to API
+        PluginHandler.raiseEvent(this, sayData);
 		super.setIsEventHandled(true);
 	}
 

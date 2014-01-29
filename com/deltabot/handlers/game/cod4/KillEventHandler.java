@@ -17,6 +17,7 @@ public class KillEventHandler extends EventHandler {
 
 	public void pushData(){
 		//Pushdata to API
+        PluginHandler.raiseEvent(this, killData);
 		super.setIsEventHandled(true);
 	}
 
