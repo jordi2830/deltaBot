@@ -22,6 +22,9 @@ public class LogReader {
 
         int currLine;
         currLine = getFileLineCount(fileToParse);
+        if(!VariableHandler.variableExists("cod4_linecount")){
+        	VariableHandler.setVariable("cod4_linecount", String.valueOf(getFileLineCount(fileToParse)));
+        }
         if (currLine != Integer.valueOf(VariableHandler.getVariableValue("cod4_linecount"))) {
             //File was found, different amount of lines from last parse
             //Reparse needed
