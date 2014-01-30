@@ -1,8 +1,10 @@
 package com.deltabot;
 
+import com.deltabot.handlers.game.cod4.LogParser;
 import com.deltabot.handlers.game.cod4.PluginHandler;
 import com.deltabot.handlers.VariableHandler;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 
 public class Boot {
@@ -39,6 +41,25 @@ public class Boot {
         } catch (InstantiationException e) {
             e.printStackTrace();
         }
+
+        LogParser cod4parser = new LogParser();
+
+        for(;;){
+
+            try {
+                cod4parser.loadNewEventElements("C:\\Program Files (x86)\\Steam\\SteamApps\\common\\Call of Duty 4\\main\\games_mp.log");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        }
+
 
 
     }

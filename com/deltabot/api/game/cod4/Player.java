@@ -4,12 +4,12 @@ import com.deltabot.handlers.RCONHandler;
 
 public class Player {
 
-    public int num;
-    public String name;
-    public int Score;
-    public int Ping;
-    public String GUID;
-    public String IP;
+    public int num = -1;
+    public String name = "null";
+    public int Score = -1;
+    public int Ping = -1;
+    public String GUID = "null";
+    public String IP = "null";
 
     public void kick(String reason) {
         kick(reason, "deltabot_local");
