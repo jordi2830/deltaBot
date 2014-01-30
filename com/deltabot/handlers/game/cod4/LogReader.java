@@ -4,10 +4,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import com.deltabot.handlers.VariableHandler;
+
 public class LogReader {
 
     private File fileToParse;
-    private int lineCount = 0;
 
     public void setFileToParse(File inFile) {
         fileToParse = inFile;
@@ -21,7 +22,7 @@ public class LogReader {
 
         int currLine;
         currLine = getFileLineCount(fileToParse);
-        if (currLine != lineCount) {
+        if (currLine != Integer.valueOf(VariableHandler.getVariableValue("cod4_linecount"))) {
             //File was found, different amount of lines from last parse
             //Reparse needed
             //lineCount = currLine;
@@ -34,13 +35,8 @@ public class LogReader {
         }
     }
     
-    public int getLineCount(){
-    	//int actualCount = getLineCount(fileToParse);
-    	return lineCount;
-    }
-    
     public void updateLineCount(){
-    	lineCount = getFileLineCount(fileToParse);
+    	VariableHandler.setVariable("cod4_linecount", String.valueOf(getFileLineCount(fileToParse)));
     }
 
     private int getFileLineCount(File inFile) {

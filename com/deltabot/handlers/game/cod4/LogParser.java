@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import com.deltabot.handlers.VariableHandler;
 import com.deltabot.handlers.game.cod4.EventHandler.Event;
 
  
@@ -16,24 +17,26 @@ public class LogParser {
 	public void loadNewEventElements(String fileLocation) throws IOException{
 		
 		ArrayList<EventHandler> logLines = new ArrayList<EventHandler>();
-		
 		File logFile = new File(fileLocation);
 		Scanner in = new Scanner(logFile);
 		LogReader read = new LogReader();
+		read.setFileToParse(logFile);
 		
-		
-		//Possible FIXME: There might be a one-off error here.
-		//skipping through the file
-		int i = 0;
-		while(i < read.getLineCount() && in.hasNextLine()){
-			in.nextLine();
-			i++;
-		}
-		
-		while(in.hasNextLine()){
-			String k = in.nextLine();
-			EventHandler evt = formatString(k);
-			if(!evt.getIsEventHandled()){
+		if(read.parseNeeded()){
+			//Possible FIXME: There might be a one-off error here.
+			//skipping through the file
+			int i = 0;
+			//System.out.println( Integer.parseInt(VariableHandler.getVariableValue("cod4_linecount")) );
+			while(i < Integer.parseInt(VariableHandler.getVariableValue("cod4_linecount")) && in.hasNextLine()){
+				in.nextLine();
+				i++;
+			}
+			
+			while(in.hasNextLine()){
+				String k = in.nextLine();
+				EventHandler evt = formatString(k);
+				//Why would this even work. we create a new object which by default has this
+				//set to false
 				logLines.add(evt);
 			}
 		}
