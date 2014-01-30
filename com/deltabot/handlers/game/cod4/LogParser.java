@@ -19,6 +19,17 @@ public class LogParser {
 		
 		File logFile = new File(fileLocation);
 		Scanner in = new Scanner(logFile);
+		LogReader read = new LogReader();
+		
+		
+		//Possible FIXME: There might be a one-off error here.
+		//skipping through the file
+		int i = 0;
+		while(i < read.getLineCount() && in.hasNextLine()){
+			in.nextLine();
+			i++;
+		}
+		
 		while(in.hasNextLine()){
 			String k = in.nextLine();
 			EventHandler evt = formatString(k);
@@ -27,6 +38,7 @@ public class LogParser {
 			}
 		}
 		in.close();
+		read.updateLineCount();
 		pushEventsToAPI(logLines);
 	}
 	

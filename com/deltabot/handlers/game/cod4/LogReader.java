@@ -20,21 +20,30 @@ public class LogReader {
     public boolean parseNeeded() {
 
         int currLine;
-        currLine = getLineCount(fileToParse);
+        currLine = getFileLineCount(fileToParse);
         if (currLine != lineCount) {
             //File was found, different amount of lines from last parse
             //Reparse needed
-            lineCount = currLine;
+            //lineCount = currLine;
             return true;
         } else {
             //File was found, same amount of lines as from last parse
             //No reparse needed
-            lineCount = currLine;
+            //lineCount = currLine;
             return false;
         }
     }
+    
+    public int getLineCount(){
+    	//int actualCount = getLineCount(fileToParse);
+    	return lineCount;
+    }
+    
+    public void updateLineCount(){
+    	lineCount = getFileLineCount(fileToParse);
+    }
 
-    public int getLineCount(File inFile) {
+    private int getFileLineCount(File inFile) {
 
         int i = 0;
 
