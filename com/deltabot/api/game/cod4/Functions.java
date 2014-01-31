@@ -24,14 +24,6 @@ public class Functions {
         p.kick(reason);
     }
 
-    public static void banPlayer(Player p, String duration) {
-        banPlayer(p, duration, "NO_REASON_DEFINED");
-    }
-
-    public static void banPlayer(Player p, String duration, String reason) {
-        p.ban(reason, duration);
-    }
-
     public static String getDvar(String dvar) {
         String responseValue = RCONHandler.sendRCON(dvar).split("\"")[3]; //split on " and get the 4th array part as its the value
         return responseValue.substring(0, responseValue.length() - 2); //cut of the last 2 chars, as they are always "^7"
@@ -87,6 +79,7 @@ public class Functions {
             String IP = currentPlayerData.substring(74, 92).split(":")[0];
 
             Player p = new Player(num, name, score, ping, GUID, IP);
+
             playerList.add(p);
 
         }
@@ -95,18 +88,35 @@ public class Functions {
     }
 
     public static Player getPlayerByName(String name) {
+        for (Player p : getCurrentPlayers()) {
+            if (p.name.toLowerCase().equals(name.toLowerCase())) return p;
+        }
+
         return null;
     }
 
     public static Player getPlayerByNum(int num) {
+        for (Player p : getCurrentPlayers()) {
+            if (p.num == num) return p;
+        }
+
         return null;
     }
 
     public static Player getPlayerByIP(String IP) {
+        for (Player p : getCurrentPlayers()) {
+            if (p.IP.equals(IP)) return p;
+        }
+
         return null;
     }
 
     public static Player getPlayerByGUID(String GUID) {
+
+        for (Player p : getCurrentPlayers()) {
+            if (p.GUID.equals(GUID)) return p;
+        }
+
         return null;
     }
 

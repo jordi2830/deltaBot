@@ -77,12 +77,41 @@ class Plugin implements Runnable {
         //TODO: add event handler support -> sent correct event to basePlugin
 
         if (e.getEventType() == EventHandler.Event.SAY) {
+
             String playerName = eventData.get("playerName");
             String message = eventData.get("message");
+            String time = eventData.get("time");
 
             Player p = Functions.getPlayerByName(playerName);
 
-            basePlugin.onPlayerSay(p, message);
+            basePlugin.onPlayerSay(p, message, time);
+
+        } else if (e.getEventType() == EventHandler.Event.DAMAGE) {
+
+            String time = eventData.get("time");
+            String victimguid = eventData.get("victim_guid");
+            String attackerguid = eventData.get("attacker_guid");
+            String weapon = eventData.get("weapon");
+            String weapon_bullet_type = eventData.get("weapon_bullet_type");
+            String hitloc = eventData.get("hitlocation");
+
+            Player victim = Functions.getPlayerByGUID(victimguid);
+            Player attacker = Functions.getPlayerByGUID(attackerguid);
+
+            basePlugin.onPlayerDamage(attacker, victim, weapon, weapon_bullet_type, hitloc, time);
+        } else if (e.getEventType() == EventHandler.Event.KILL) {
+
+            String time = eventData.get("time");
+            String victimguid = eventData.get("victim_guid");
+            String attackerguid = eventData.get("attacker_guid");
+            String weapon = eventData.get("weapon");
+            String weapon_bullet_type = eventData.get("weapon_bullet_type");
+            String hitloc = eventData.get("hitlocation");
+
+            Player victim = Functions.getPlayerByGUID(victimguid); //TODO: find a way to bypass the need to get a status command out each time we get a player. (possibly cache data? and only fetch the new data through status when ping or score is requested by a plugin?) -> CacheHandler
+            Player attacker = Functions.getPlayerByGUID(attackerguid);
+
+            basePlugin.onPlayerKilled(attacker, victim, weapon, weapon_bullet_type, hitloc, time);
         }
     }
 

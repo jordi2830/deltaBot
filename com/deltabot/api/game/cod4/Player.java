@@ -14,8 +14,8 @@ public class Player {
     public Player(int num, String name, int score, int ping, String GUID, String IP) {
         this.num = num;
         this.name = name;
-        this.score = score;
         this.ping = ping;
+        this.score = score;
         this.GUID = GUID;
         this.IP = IP;
     }
@@ -26,14 +26,6 @@ public class Player {
 
     public void kick(String reason, String caller) {
         RCONHandler.sendRCON("clientkick " + num);
-    }
-
-    public void ban(String reason, String duration) {
-        ban(reason, duration, "deltabot_local");
-    }
-
-    public void ban(String reason, String duration, String caller) {
-
     }
 
     public void tell(String message) {

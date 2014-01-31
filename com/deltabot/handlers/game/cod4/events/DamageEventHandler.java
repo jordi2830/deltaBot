@@ -1,8 +1,8 @@
 package com.deltabot.handlers.game.cod4.events;
 
-import java.util.Map;
-
 import com.deltabot.handlers.game.cod4.PluginHandler;
+
+import java.util.Map;
 
 
 public class DamageEventHandler extends EventHandler {
