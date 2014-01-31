@@ -1,11 +1,11 @@
-package com.deltabot.handlers.game.cod4;
+package com.deltabot.handlers.game.cod4.events;
 
 import java.util.Map;
 
 public class EventHandler {
 
     public enum Event {
-        INIT_GAME, JOIN, QUIT, KILL, SAY, NONE
+        INIT_GAME, EXITLEVEL, SHUTDOWNGAME, JOIN, QUIT, KILL, DAMAGE, WEAPON, SAY, NONE
     }
 
     private Event eventType;
