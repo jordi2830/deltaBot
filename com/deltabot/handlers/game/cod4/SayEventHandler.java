@@ -5,20 +5,20 @@ import java.util.Map;
 
 public class SayEventHandler extends EventHandler {
 
-	private Map<String, String> sayData;
-	
-	public SayEventHandler(Event evt) {
-		super(evt);
-	}
-	
-	public void setData(Map<String, String> inData){
-		sayData = inData;
-	}
-	
-	public void pushData(){
-		//Pushdata to API
+    private Map<String, String> sayData;
+
+    public SayEventHandler(Event evt) {
+        super(evt);
+    }
+
+    public void setData(Map<String, String> inData) {
+        sayData = inData;
+    }
+
+    public void pushData() {
+        //Pushdata to API
         PluginHandler.raiseEvent(this, sayData);
-		super.setIsEventHandled(true);
-	}
+        super.setIsEventHandled(true);
+    }
 
 }

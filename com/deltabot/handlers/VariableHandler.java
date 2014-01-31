@@ -10,19 +10,19 @@ public class VariableHandler {
     public static void setVariable(String name, String value) {
         //Check if the variable exists first..
         if (variableExists(name)) {
-         //   System.out.println("Variable '" + name + "' already exists. Changing value to '" + value + "'.");
+            //   System.out.println("Variable '" + name + "' already exists. Changing value to '" + value + "'.");
             adjustVariableValue(name, value);
         } else {
-        //    System.out.println("Adding new variable '" + name + "' with a value of '" + value + "'.");
+            //    System.out.println("Adding new variable '" + name + "' with a value of '" + value + "'.");
             Variable var = new Variable(name, value);
             varList.add(var);
         }
     }
 
-    public static String getVariableValue(String name){
-        if(variableExists(name)){
-            for(Variable var : varList){
-                if(var.name.toLowerCase().equals(name.toLowerCase())) return var.value;
+    public static String getVariableValue(String name) {
+        if (variableExists(name)) {
+            for (Variable var : varList) {
+                if (var.name.toLowerCase().equals(name.toLowerCase())) return var.value;
             }
         }
 

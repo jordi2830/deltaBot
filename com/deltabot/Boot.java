@@ -1,8 +1,10 @@
 package com.deltabot;
 
+import com.deltabot.api.game.cod4.Functions;
+import com.deltabot.api.game.cod4.Player;
+import com.deltabot.handlers.VariableHandler;
 import com.deltabot.handlers.game.cod4.LogParser;
 import com.deltabot.handlers.game.cod4.PluginHandler;
-import com.deltabot.handlers.VariableHandler;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -42,9 +44,14 @@ public class Boot {
             e.printStackTrace();
         }
 
+        for (Player p : Functions.getCurrentPlayers()) {
+            p.tell("h");
+        }
+
+
         LogParser cod4parser = new LogParser();
 
-        for(;;){
+        for (; ; ) {
 
             try {
                 cod4parser.loadNewEventElements("C:\\Program Files (x86)\\Steam\\SteamApps\\common\\Call of Duty 4\\main\\games_mp.log");
@@ -59,7 +66,6 @@ public class Boot {
             }
 
         }
-
 
 
     }

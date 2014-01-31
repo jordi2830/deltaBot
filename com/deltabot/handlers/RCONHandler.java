@@ -19,7 +19,7 @@ public class RCONHandler {
         }
     }
 
-    public static String sendRCON(String message){
+    public static String sendRCON(String message) {
 
         String IP = VariableHandler.getVariableValue("server_ip");
         int aPort = Integer.valueOf(VariableHandler.getVariableValue("server_port"));
@@ -42,7 +42,7 @@ public class RCONHandler {
         return null;
     }
 
-    public static String sendGetStatus(){
+    public static String sendGetStatus() {
 
         String IP = VariableHandler.getVariableValue("server_ip");
         int aPort = Integer.valueOf(VariableHandler.getVariableValue("server_port"));

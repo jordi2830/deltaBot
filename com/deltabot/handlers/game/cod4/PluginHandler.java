@@ -3,7 +3,6 @@ package com.deltabot.handlers.game.cod4;
 import com.deltabot.api.game.cod4.BasePlugin;
 import com.deltabot.api.game.cod4.Functions;
 import com.deltabot.api.game.cod4.Player;
-import sun.org.mozilla.javascript.internal.Function;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -76,7 +75,7 @@ class Plugin implements Runnable {
     public void sendEvent(EventHandler e, Map<String, String> eventData) {
         //TODO: add event handler support -> sent correct event to basePlugin
 
-        if(e.getEventType() == EventHandler.Event.SAY){
+        if (e.getEventType() == EventHandler.Event.SAY) {
             String playerName = eventData.get("playerName");
             String message = eventData.get("message");
 

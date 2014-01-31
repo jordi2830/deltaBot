@@ -1,10 +1,10 @@
 package com.deltabot.handlers.game.cod4;
 
+import com.deltabot.handlers.VariableHandler;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-
-import com.deltabot.handlers.VariableHandler;
 
 public class LogReader {
 
@@ -22,8 +22,8 @@ public class LogReader {
 
         int currLine;
         currLine = getFileLineCount(fileToParse);
-        if(!VariableHandler.variableExists("cod4_linecount")){
-        	VariableHandler.setVariable("cod4_linecount", String.valueOf(getFileLineCount(fileToParse)));
+        if (!VariableHandler.variableExists("cod4_linecount")) {
+            VariableHandler.setVariable("cod4_linecount", String.valueOf(getFileLineCount(fileToParse)));
         }
         if (currLine != Integer.valueOf(VariableHandler.getVariableValue("cod4_linecount"))) {
             //File was found, different amount of lines from last parse
@@ -37,9 +37,9 @@ public class LogReader {
             return false;
         }
     }
-    
-    public void updateLineCount(){
-    	VariableHandler.setVariable("cod4_linecount", String.valueOf(getFileLineCount(fileToParse)));
+
+    public void updateLineCount() {
+        VariableHandler.setVariable("cod4_linecount", String.valueOf(getFileLineCount(fileToParse)));
     }
 
     private int getFileLineCount(File inFile) {
