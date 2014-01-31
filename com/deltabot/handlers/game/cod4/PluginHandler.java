@@ -3,6 +3,7 @@ package com.deltabot.handlers.game.cod4;
 import com.deltabot.api.game.cod4.BasePlugin;
 import com.deltabot.api.game.cod4.Functions;
 import com.deltabot.api.game.cod4.Player;
+import com.deltabot.handlers.game.cod4.events.EventHandler;
 
 import java.net.MalformedURLException;
 import java.net.URL;
