@@ -122,7 +122,13 @@ class Plugin implements Runnable {
             Player victim = new Player(victimname, victimguid);
             Player attacker = new Player(attackername, attackerguid);
 
-            pluginInterface.onPlayerKilled(attacker, victim, weapon, weapon_bullet_type, hitloc, time);
+            if (attackerguid.equals(victimguid) || attackerguid.equals("")) {
+                //suicide
+                pluginInterface.onPlayerSuicide(victim, weapon, time);
+            } else {
+                pluginInterface.onPlayerKilled(attacker, victim, weapon, weapon_bullet_type, hitloc, time);
+            }
+
 
         } else if (e.getEventType() == EventHandler.Event.WEAPON) {
 

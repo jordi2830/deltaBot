@@ -22,6 +22,8 @@ public interface PluginInterface {
 
     public void onPlayerKilled(Player attacker, Player victim, String weapon, String weapon_bullet_type, String hitLoc, String time);
 
+    public void onPlayerSuicide(Player victim, String weapon, String time);
+
     public void onWeaponPickup(Player player, String weaponName, String time);
 
     public void onPlayerSay(Player player, String message, String time);
