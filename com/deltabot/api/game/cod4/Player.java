@@ -4,20 +4,80 @@ import com.deltabot.handlers.RCONHandler;
 
 public class Player {
 
-    public int num;
+    public int num() {
+        //only fetch the num when it is requested by a plugin, else this would result in ALOT of status requests each time an event occured
+        //the same goes for ping, score and IP (as these 4 pieces of data are not provided in a log, and must be fetched by rcon)
+        if (varsSetFromExternalData) return externalData_num;
+
+        for (Player p : Functions.getCurrentPlayers()) {
+            if (p.GUID.equals(GUID)) return p.num();
+        }
+        return -1;
+    }
+
+    ;
+
+    public int score() {
+        if (varsSetFromExternalData) return externalData_score;
+
+        for (Player p : Functions.getCurrentPlayers()) {
+            if (p.GUID.equals(GUID)) return p.score();
+        }
+        return -1;
+    }
+
+    ;
+
+    public int ping() {
+        if (varsSetFromExternalData) return externalData_ping;
+
+        for (Player p : Functions.getCurrentPlayers()) {
+            if (p.GUID.equals(GUID)) return p.ping();
+        }
+        return -1;
+    }
+
+    ;
+
+    public String IP() {
+        if (varsSetFromExternalData) return externalData_IP;
+
+        for (Player p : Functions.getCurrentPlayers()) {
+            if (p.GUID.equals(GUID)) return p.IP();
+        }
+        return null;
+    }
+
+    ;
+
     public String name;
-    public int score;
-    public int ping;
     public String GUID;
-    public String IP;
+
+
+    private boolean varsSetFromExternalData = false;
+    private int externalData_num;
+    private int externalData_score;
+    private int externalData_ping;
+    private String externalData_IP;
 
     public Player(int num, String name, int score, int ping, String GUID, String IP) {
-        this.num = num;
+        //This is only called when all of the info is already available (fetched from status request)
         this.name = name;
-        this.ping = ping;
-        this.score = score;
         this.GUID = GUID;
-        this.IP = IP;
+        this.varsSetFromExternalData = true;
+        this.externalData_num = num;
+        this.externalData_score = score;
+        this.externalData_ping = ping;
+        this.externalData_IP = IP;
+    }
+
+    public Player(String name, String GUID) {
+        this.name = name;
+        this.GUID = GUID;
+    }
+
+    public void kick() {
+        kick("NO_REASON_DEFINED");
     }
 
     public void kick(String reason) {
@@ -25,10 +85,10 @@ public class Player {
     }
 
     public void kick(String reason, String caller) {
-        RCONHandler.sendRCON("clientkick " + num);
+        RCONHandler.sendRCON("clientkick " + num() + " " + reason);
     }
 
     public void tell(String message) {
-
+        RCONHandler.sendRCON("tell " + num() + " " + message);
     }
 }

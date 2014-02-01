@@ -87,17 +87,25 @@ public class Functions {
         return playerList;
     }
 
-    public static Player getPlayerByName(String name) {
+    public static Player getPlayerByName(String namePart) {
+
+        int matches = 0;
+        Player player = null;
+
         for (Player p : getCurrentPlayers()) {
-            if (p.name.toLowerCase().equals(name.toLowerCase())) return p;
+            if (p.name.toLowerCase().contains(namePart)) {
+                player = p;
+            }
         }
 
-        return null;
+        if (matches > 1) return null; //More than one result, return nothing
+
+        return player;
     }
 
     public static Player getPlayerByNum(int num) {
         for (Player p : getCurrentPlayers()) {
-            if (p.num == num) return p;
+            if (p.num() == num) return p;
         }
 
         return null;
@@ -105,7 +113,7 @@ public class Functions {
 
     public static Player getPlayerByIP(String IP) {
         for (Player p : getCurrentPlayers()) {
-            if (p.IP.equals(IP)) return p;
+            if (p.IP().equals(IP)) return p;
         }
 
         return null;

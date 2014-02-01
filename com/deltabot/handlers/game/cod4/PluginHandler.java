@@ -1,8 +1,7 @@
 package com.deltabot.handlers.game.cod4;
 
-import com.deltabot.api.game.cod4.BasePlugin;
-import com.deltabot.api.game.cod4.Functions;
 import com.deltabot.api.game.cod4.Player;
+import com.deltabot.api.game.cod4.PluginInterface;
 import com.deltabot.handlers.game.cod4.events.EventHandler;
 
 import java.net.MalformedURLException;
@@ -18,7 +17,7 @@ public class PluginHandler {
 
     public static void loadPlugin(String jar, String pluginMainClass) throws MalformedURLException, ClassNotFoundException, IllegalAccessException, InstantiationException {
         ClassLoader cl = new URLClassLoader(new URL[]{new URL(jar)});
-        BasePlugin newPlugin = (BasePlugin) cl.loadClass(pluginMainClass).newInstance();
+        PluginInterface newPlugin = (PluginInterface) cl.loadClass(pluginMainClass).newInstance();
 
         Plugin p = new Plugin(newPlugin); //Plugin will be started once its object is created
 
@@ -40,19 +39,19 @@ enum PLUGINSTATE {
 
 class Plugin implements Runnable {
 
-    private BasePlugin basePlugin;
+    private PluginInterface pluginInterface;
     private Thread pluginLoopThread;
     private PLUGINSTATE state;
 
-    public Plugin(BasePlugin basePlugin) {
-        this.basePlugin = basePlugin;
+    public Plugin(PluginInterface pluginInterface) {
+        this.pluginInterface = pluginInterface;
         startPlugin();
     }
 
     public void startPlugin() {
-        if (basePlugin.start()) { //plugin will return true if it has successfully started.. else false
+        if (pluginInterface.start()) { //plugin will return true if it has successfully started.. else false
             //if true -> start main loop from plugin
-            System.out.println("Plugin '" + basePlugin.Manifest().name + "' version " + basePlugin.Manifest().version + " successfully loaded.");
+            System.out.println("Plugin '" + pluginInterface.Manifest().name + "' version " + pluginInterface.Manifest().version + " successfully loaded.");
             state = PLUGINSTATE.RUNNING;
             pluginLoopThread = new Thread(this);
             pluginLoopThread.start();
@@ -60,58 +59,102 @@ class Plugin implements Runnable {
     }
 
     public void pausePlugin() {
-        if (basePlugin.pause()) state = PLUGINSTATE.PAUSED;
+        if (pluginInterface.pause()) state = PLUGINSTATE.PAUSED;
     }
 
     public void resumePlugin() {
-        basePlugin.resume();
+        pluginInterface.resume();
         state = PLUGINSTATE.RUNNING;
     }
 
     public void stopPlugin() {
-        basePlugin.stop();
+        pluginInterface.stop();
         state = PLUGINSTATE.STOPPED;
     }
 
     public void sendEvent(EventHandler e, Map<String, String> eventData) {
-        //TODO: add event handler support -> sent correct event to basePlugin
+        //TODO: add event handler support -> sent correct event to pluginInterface
 
         if (e.getEventType() == EventHandler.Event.SAY) {
 
             String playerName = eventData.get("playerName");
+            String playerGUID = eventData.get("guid");
             String message = eventData.get("message");
             String time = eventData.get("time");
 
-            Player p = Functions.getPlayerByName(playerName);
+            Player p = new Player(playerName, playerGUID);
 
-            basePlugin.onPlayerSay(p, message, time);
+            pluginInterface.onPlayerSay(p, message, time);
 
         } else if (e.getEventType() == EventHandler.Event.DAMAGE) {
 
             String time = eventData.get("time");
+
             String victimguid = eventData.get("victim_guid");
+            String victimname = eventData.get("victim_name");
+
             String attackerguid = eventData.get("attacker_guid");
+            String attackername = eventData.get("attacker_name");
+
             String weapon = eventData.get("weapon");
             String weapon_bullet_type = eventData.get("weapon_bullet_type");
             String hitloc = eventData.get("hitlocation");
 
-            Player victim = Functions.getPlayerByGUID(victimguid);
-            Player attacker = Functions.getPlayerByGUID(attackerguid);
+            Player victim = new Player(victimname, victimguid);
+            Player attacker = new Player(attackername, attackerguid);
 
-            basePlugin.onPlayerDamage(attacker, victim, weapon, weapon_bullet_type, hitloc, time);
+            pluginInterface.onPlayerDamage(attacker, victim, weapon, weapon_bullet_type, hitloc, time);
+
         } else if (e.getEventType() == EventHandler.Event.KILL) {
 
             String time = eventData.get("time");
+
             String victimguid = eventData.get("victim_guid");
+            String victimname = eventData.get("victim_name");
+
             String attackerguid = eventData.get("attacker_guid");
+            String attackername = eventData.get("attacker_name");
+
             String weapon = eventData.get("weapon");
             String weapon_bullet_type = eventData.get("weapon_bullet_type");
             String hitloc = eventData.get("hitlocation");
 
-            Player victim = Functions.getPlayerByGUID(victimguid); //TODO: find a way to bypass the need to get a status command out each time we get a player. (possibly cache data? and only fetch the new data through status when ping or score is requested by a plugin?) -> CacheHandler
-            Player attacker = Functions.getPlayerByGUID(attackerguid);
+            Player victim = new Player(victimname, victimguid);
+            Player attacker = new Player(attackername, attackerguid);
 
-            basePlugin.onPlayerKilled(attacker, victim, weapon, weapon_bullet_type, hitloc, time);
+            pluginInterface.onPlayerKilled(attacker, victim, weapon, weapon_bullet_type, hitloc, time);
+
+        } else if (e.getEventType() == EventHandler.Event.WEAPON) {
+
+            String time = eventData.get("time");
+            String playername = eventData.get("playerName");
+            String playerguid = eventData.get("guid");
+            String weapon = eventData.get("weapon");
+
+            Player p = new Player(playername, playerguid);
+
+            pluginInterface.onWeaponPickup(p, weapon, time);
+
+        } else if (e.getEventType() == EventHandler.Event.QUIT) {
+
+            String time = eventData.get("time");
+            String playername = eventData.get("playerName");
+            String playerguid = eventData.get("guid");
+
+            Player p = new Player(playername, playerguid);
+
+            pluginInterface.onPlayerQuit(p, time);
+
+        } else if (e.getEventType() == EventHandler.Event.JOIN) {
+
+            String time = eventData.get("time");
+            String playername = eventData.get("playerName");
+            String playerguid = eventData.get("guid");
+
+            Player p = new Player(playername, playerguid);
+
+            pluginInterface.onPlayerJoined(p, time);
+
         }
     }
 
@@ -120,7 +163,7 @@ class Plugin implements Runnable {
         while (true) {
             if (state == PLUGINSTATE.RUNNING) {
                 //The main loop of the plugin will run in this thread
-                int wait = basePlugin.loop(); //Loop will return the wait time for the next time we go through the loop
+                int wait = pluginInterface.loop(); //Loop will return the wait time for the next time we go through the loop
                 try {
                     Thread.sleep(wait);
                 } catch (InterruptedException e) {
