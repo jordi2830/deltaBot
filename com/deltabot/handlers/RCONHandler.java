@@ -5,7 +5,7 @@ import java.net.*;
 import java.util.Arrays;
 
 public class RCONHandler {
-    private static final int NETWORK_TIMEOUT = 500;
+    private static final int NETWORK_TIMEOUT = 1000;
     private static DatagramPacket packet;
     private static DatagramPacket receivedPacket;
     private static DatagramSocket dsocket;
@@ -90,7 +90,11 @@ public class RCONHandler {
     private static byte[] receivePacket() throws IOException {
         byte[] receiveBuf = new byte[65507];
         receivedPacket = new DatagramPacket(receiveBuf, receiveBuf.length);
-        dsocket.receive(receivedPacket);
+        try {
+            dsocket.receive(receivedPacket);
+        } catch (SocketTimeoutException e) {
+            //Sometimes this fails, I'm not quite sure yet why, but investigation is needed
+        }
         byte[] received = Arrays.copyOf(receivedPacket.getData(), receivedPacket.getLength());
         try {
             Thread.sleep(500); //Sleep because if we do too many rcon requests at a short time they will time out.

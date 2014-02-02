@@ -77,18 +77,10 @@ public class Player {
     }
 
     public void kick() {
-        kick("NO_REASON_DEFINED");
-    }
-
-    public void kick(String reason) {
-        kick(reason, "deltabot_local");
-    }
-
-    public void kick(String reason, String caller) {
-        RCONHandler.sendRCON("clientkick " + num() + " " + reason);
+        RCONHandler.sendRCON("clientkick " + num());
     }
 
     public void tell(String message) {
-        RCONHandler.sendRCON("tell " + num() + " " + message);
+        RCONHandler.sendRCON("tell " + num() + " ^1[^3deltaBot^1]^7: " + message);
     }
 }

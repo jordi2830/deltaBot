@@ -17,11 +17,7 @@ public class Functions {
     }
 
     public static void kickPlayer(Player p) {
-        kickPlayer(p, "NO_REASON_DEFINED");
-    }
-
-    public static void kickPlayer(Player p, String reason) {
-        p.kick(reason);
+        p.kick();
     }
 
     public static String getDvar(String dvar) {
@@ -38,48 +34,35 @@ public class Functions {
     }
 
     public static List<Player> getCurrentPlayers() {
-        String statusresponseData[] = RCONHandler.sendRCON("status").split(System.getProperty("line.separator")); //use this line separator since its OS independent
 
-        if (statusresponseData.length == 6) {
-            //6 = length of statusresponse from empty server, so return an empty list now, before attempting any parsing
-            return new ArrayList<Player>();
-        }
+        ArrayList<Player> playerList = new ArrayList<Player>();
 
-        List<Player> playerList = new ArrayList<Player>();
+        String statusresponse = RCONHandler.sendRCON("status");
+        String[] lines = statusresponse.split("\n");
 
-        for (int i = 4; i <= statusresponseData.length - 3; i++) {
+		/* From what I can see, you need to subtract one less than the current
+         * playercount from the lines.length variable to get it working properly.
+		 */
 
-            String currentPlayerData = statusresponseData[i];
+        for (int i = 4; i < lines.length; i++) {
+            String[] splitData = lines[i].replaceAll("[ ]+", " ").trim().split(" ");
 
-            //Start with the num -> char 2 & 3
-            int num = Integer.valueOf(currentPlayerData.substring(1, 2).replace(" ", ""));
-            int score = Integer.valueOf(currentPlayerData.substring(4, 8).replace(" ", ""));
-            int ping = Integer.valueOf(currentPlayerData.substring(10, 13).replace(" ", "")); //FIXME: could be bugged, needs to be tested
-            String GUID = currentPlayerData.substring(15, 46);
-            String name = "";
+            int num = Integer.valueOf(splitData[0]);
+            int score = Integer.valueOf(splitData[1]);
+            int ping = Integer.valueOf(splitData[2]);
+            String guid = splitData[3];
 
-            if (currentPlayerData.substring(48, 62).split("^").length > 1) {
-                //The player has color codes , which makes it a bit trickier to parse it..
-                String nameChars = currentPlayerData.substring(48, 62);
+            //Might be a problem here, as lastmsg seems
+            //to stick onto the name, without any spaces between the
+            //name and the lastmsg
 
-                for (; ; ) {
-                    //Check if the last char is a empty space, if so, cut it off and check again
-                    if (nameChars.charAt(nameChars.length()) != " ".charAt(0)) {
-                        name = nameChars;
-                        break;
-                    } else {
-                        nameChars = nameChars.substring(0, nameChars.length() - 1);
-                    }
-                }
+            String name = splitData[4].substring(0, splitData[4].length() - 2); //remove the ^7 at the end of the names
+            String lastmsg = splitData[5];
+            String address = splitData[6].split(":")[0];
+            String qport = splitData[7];
+            String rate = splitData[8];
 
-            } else {
-                name = currentPlayerData.substring(48, 62).split("^")[0];
-            }
-
-            String IP = currentPlayerData.substring(74, 92).split(":")[0];
-
-            Player p = new Player(num, name, score, ping, GUID, IP);
-
+            Player p = new Player(num, name, score, ping, guid, address);
             playerList.add(p);
 
         }
