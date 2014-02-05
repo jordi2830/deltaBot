@@ -47,7 +47,10 @@ public class Functions {
         for (int i = 4; i < lines.length; i++) {
             String[] splitData = lines[i].replaceAll("[ ]+", " ").trim().split(" ");
 
-            int num = Integer.valueOf(splitData[0]);
+            int num = -1;
+            if(!splitData[0].equals("CNCT")) {
+            	num = Integer.valueOf(splitData[0]);
+            }
             int score = Integer.valueOf(splitData[1]);
             int ping = Integer.valueOf(splitData[2]);
             String guid = splitData[3];

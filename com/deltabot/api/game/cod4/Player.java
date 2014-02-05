@@ -87,7 +87,11 @@ public class Player {
     }
 
     public void tell(String message) {
-        RCONHandler.sendRCON("tell " + num() + " ^1[^3deltaBot^1]^7: " + message);
+        tellRaw( "^1[^3deltaBot^1]^7: " + message );
+    }
+    
+    public void tellRaw(String message) {
+        RCONHandler.sendRCON("tell " + num() + " " + message);
     }
 
     public int getPermissions() {
