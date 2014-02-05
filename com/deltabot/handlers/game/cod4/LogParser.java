@@ -177,6 +177,15 @@ public class LogParser {
         k.put("guid", sayData[1]);
         k.put("playerName", sayData[3]);
         k.put("message", sayData[4].substring(1));
+
+        if (k.get("message").startsWith(VariableHandler.getVariableValue("command_prefix"))) {
+            if (CommandHandler.isKnownCommand(k.get("message").substring(1, k.get("message").length()))) {
+                EventHandler i = new InternalCommandHandler(Event.SAY);
+                i.setData(k);
+                return i;
+            }
+        }
+
         EventHandler i = new SayEventHandler(Event.SAY);
         i.setData(k);
         return i;

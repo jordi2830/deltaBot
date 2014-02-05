@@ -27,7 +27,7 @@ public class PluginHandler {
 
     public static void raiseEvent(EventHandler e, Map<String, String> eventData) {
         for (Plugin p : loadedPlugins) {
-            p.sendEvent(e, eventData); //TODO: handle events
+            p.sendEvent(e, eventData);
         }
     }
 
@@ -73,7 +73,6 @@ class Plugin implements Runnable {
     }
 
     public void sendEvent(EventHandler e, Map<String, String> eventData) {
-        //TODO: add event handler support -> sent correct event to pluginInterface
 
         if (e.getEventType() == EventHandler.Event.SAY) {
 
@@ -149,6 +148,7 @@ class Plugin implements Runnable {
 
             Player p = new Player(playername, playerguid);
 
+            CacheHandler.removePlayerFromPlayerListCache(p);
             pluginInterface.onPlayerQuit(p, time);
 
         } else if (e.getEventType() == EventHandler.Event.JOIN) {
@@ -159,7 +159,10 @@ class Plugin implements Runnable {
 
             Player p = new Player(playername, playerguid);
 
-            pluginInterface.onPlayerJoined(p, time);
+            if (!CacheHandler.isPlayerInServer(playerguid)) {
+                CacheHandler.addPlayerToPlayerListCache(p);
+                pluginInterface.onPlayerJoined(p, time);
+            }
 
         }
     }
@@ -177,7 +180,7 @@ class Plugin implements Runnable {
                 }
             } else {
                 try {
-                    Thread.sleep(10);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

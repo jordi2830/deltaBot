@@ -1,6 +1,9 @@
 package com.deltabot;
 
+import com.deltabot.handlers.TimeHandler;
 import com.deltabot.handlers.VariableHandler;
+import com.deltabot.handlers.game.cod4.CacheHandler;
+import com.deltabot.handlers.game.cod4.CommandHandler;
 import com.deltabot.handlers.game.cod4.LogParser;
 import com.deltabot.handlers.game.cod4.PluginHandler;
 
@@ -42,7 +45,12 @@ public class Boot {
             e.printStackTrace();
         }
 
+
         LogParser cod4parser = new LogParser();
+
+        CacheHandler.init();
+        CommandHandler.init();
+        TimeHandler.init();
 
         for (; ; ) {
 

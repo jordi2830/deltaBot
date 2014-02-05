@@ -4,6 +4,8 @@ import com.deltabot.api.Manifest;
 
 public interface PluginInterface {
 
+    public Manifest Manifest();
+
     public boolean start(); //if true is returned -> plugin has succesfully started
 
     public void stop(); //called when a plugin is stopped by an admin
@@ -27,7 +29,5 @@ public interface PluginInterface {
     public void onWeaponPickup(Player player, String weaponName, String time);
 
     public void onPlayerSay(Player player, String message, String time);
-
-    public Manifest Manifest();
 
 }

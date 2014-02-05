@@ -1,6 +1,13 @@
 package com.deltabot.api.game.cod4;
 
+import com.deltabot.handlers.PermissionsHandler;
 import com.deltabot.handlers.RCONHandler;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class Player {
 
@@ -53,7 +60,6 @@ public class Player {
     public String name;
     public String GUID;
 
-
     private boolean varsSetFromExternalData = false;
     private int externalData_num;
     private int externalData_score;
@@ -82,5 +88,25 @@ public class Player {
 
     public void tell(String message) {
         RCONHandler.sendRCON("tell " + num() + " ^1[^3deltaBot^1]^7: " + message);
+    }
+
+    public int getPermissions() {
+        return PermissionsHandler.getPermissions(GUID);
+    }
+
+    public String getCountry() {
+
+        try {
+            // URL url = new URL("http://api.hostip.info/get_html.php?ip=" + IP());
+            URL url = new URL("http://api.hostip.info/get_html.php?ip=" + "84.198.74.98");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
+
+            return reader.readLine().split(":")[1].split("\\(")[0].trim();
+
+        } catch (MalformedURLException e) {
+            return "null";
+        } catch (IOException e) {
+            return "null";
+        }
     }
 }
