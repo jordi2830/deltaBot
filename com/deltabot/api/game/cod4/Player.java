@@ -97,8 +97,7 @@ public class Player {
     public String getCountry() {
 
         try {
-            // URL url = new URL("http://api.hostip.info/get_html.php?ip=" + IP());
-            URL url = new URL("http://api.hostip.info/get_html.php?ip=" + "84.198.74.98");
+            URL url = new URL("http://api.hostip.info/get_html.php?ip=" + IP());
             BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
 
             return reader.readLine().split(":")[1].split("\\(")[0].trim();
