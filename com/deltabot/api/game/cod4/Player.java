@@ -87,7 +87,7 @@ public class Player {
     }
 
     public void tell(String message) {
-        tellRaw( "^1[^3deltaBot^1]^7: " + message );
+        tellRaw("^1[^3dB^1]^7: " + message);
     }
     
     public void tellRaw(String message) {

@@ -13,7 +13,7 @@ public class Functions {
     }
 
     public static void sayAll(String Message) {
-        RCONHandler.sendRCON("say ^1[^3deltaBot^1]^7: " + Message);
+        RCONHandler.sendRCON("say ^1[^3dB^1]^7: " + Message);
     }
 
     public static void kickPlayer(Player p) {
