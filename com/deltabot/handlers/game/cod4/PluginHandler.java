@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+enum PLUGINSTATE {
+    RUNNING, PAUSED, STOPPED
+}
+
 public class PluginHandler {
 
     private static List<Plugin> loadedPlugins = new ArrayList<Plugin>();
@@ -31,10 +35,6 @@ public class PluginHandler {
         }
     }
 
-}
-
-enum PLUGINSTATE {
-    RUNNING, PAUSED, STOPPED
 }
 
 class Plugin implements Runnable {

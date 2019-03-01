@@ -4,13 +4,8 @@ import java.util.Map;
 
 public class EventHandler {
 
-    public enum Event {
-        INIT_GAME, EXITLEVEL, SHUTDOWNGAME, JOIN, QUIT, KILL, DAMAGE, WEAPON, SAY, NONE
-    }
-
     private Event eventType;
     private boolean isEventHandled;
-
     public EventHandler(Event evt) {
         eventType = evt;
     }
@@ -38,6 +33,10 @@ public class EventHandler {
     public void pushData() {
         //Should be overridden in each specific class so that it's date is
         //sent to the API
+    }
+
+    public enum Event {
+        INIT_GAME, EXITLEVEL, SHUTDOWNGAME, JOIN, QUIT, KILL, DAMAGE, WEAPON, SAY, NONE
     }
 
 }

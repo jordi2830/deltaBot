@@ -40,16 +40,16 @@ public class Functions {
         String statusresponse = RCONHandler.sendRCON("status");
         String[] lines = statusresponse.split("\n");
 
-		/* From what I can see, you need to subtract one less than the current
+        /* From what I can see, you need to subtract one less than the current
          * playercount from the lines.length variable to get it working properly.
-		 */
+         */
 
         for (int i = 4; i < lines.length; i++) {
             String[] splitData = lines[i].replaceAll("[ ]+", " ").trim().split(" ");
 
             int num = -1;
-            if(!splitData[0].equals("CNCT")) {
-            	num = Integer.valueOf(splitData[0]);
+            if (!splitData[0].equals("CNCT")) {
+                num = Integer.valueOf(splitData[0]);
             }
             int score = Integer.valueOf(splitData[1]);
             int ping = Integer.valueOf(splitData[2]);

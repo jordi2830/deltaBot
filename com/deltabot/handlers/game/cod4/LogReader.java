@@ -10,12 +10,12 @@ public class LogReader {
 
     private File fileToParse;
 
-    public void setFileToParse(File inFile) {
-        fileToParse = inFile;
-    }
-
     public File getFileToParse() {
         return fileToParse;
+    }
+
+    public void setFileToParse(File inFile) {
+        fileToParse = inFile;
     }
 
     public boolean parseNeeded() {
